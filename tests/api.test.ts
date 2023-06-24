@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-done-callback */
+/* eslint-disable jest/expect-expect */
 import request from 'supertest';
 
 import app from '../src/app';
@@ -8,9 +10,13 @@ describe('GET /api/v1', () => {
       .get('/api/v1')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200, {
-        message: 'API - 👋🌎🌍🌏',
-      }, done);
+      .expect(
+        200,
+        {
+          message: 'API - 👋🌎🌍🌏',
+        },
+        done
+      );
   });
 });
 

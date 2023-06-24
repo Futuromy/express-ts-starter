@@ -1,11 +1,10 @@
-import express from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
 import cors from 'cors';
+import express, { json } from 'express';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
-import * as middlewares from './middlewares';
-import api from './api';
-import MessageResponse from './interfaces/MessageResponse';
+import { errorHandler, handler404 } from './controllers/ErrorController';
+import mainRouter from './routes/MainRoute';
 
 require('dotenv').config();
 
@@ -14,17 +13,17 @@ const app = express();
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
-app.get<{}, MessageResponse>('/', (req, res) => {
-  res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-  });
+app.get('/health', (_req, res) => {
+  res.status(200).json({ server: 'ok' });
 });
 
-app.use('/api/v1', api);
+// Routes
+app.use(mainRouter);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+// Error handler middlewares
+app.use(handler404);
+app.use(errorHandler);
 
 export default app;

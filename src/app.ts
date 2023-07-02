@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { errorHandler, handler404 } from './controllers/ErrorController';
-import mainRouter from './routes/MainRoute';
+import { mainRouter } from './routes';
 
 require('dotenv').config();
 
@@ -25,5 +25,8 @@ app.use(mainRouter);
 // Error handler middlewares
 app.use(handler404);
 app.use(errorHandler);
+
+// Trust proxy
+app.set('trust proxy', true);
 
 export default app;

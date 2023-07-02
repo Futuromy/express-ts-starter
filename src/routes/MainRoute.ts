@@ -2,12 +2,13 @@ import { Router } from 'express';
 
 import mainController from '@/controllers/MainController';
 import { rateLimitMiddleware } from '@/middlewares/RateLimiter';
+import { paramsMainValidation } from '@/Validations/MainValidation';
 
 const mainRouter = Router();
 
 mainRouter.get(
   '/main/:id',
-  rateLimitMiddleware(10, 10),
+  [paramsMainValidation, rateLimitMiddleware(1, 10)],
   mainController.getMessage
 );
 

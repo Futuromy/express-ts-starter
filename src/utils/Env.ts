@@ -1,5 +1,7 @@
 import { ApiError } from '@/errors/ApiError';
 
+require('dotenv').config();
+
 export class Env {
   /**
    * @param key - Environment variable key.

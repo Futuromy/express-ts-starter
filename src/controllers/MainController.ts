@@ -1,3 +1,4 @@
+import { getRateLimitInfo } from '@/middlewares/RateLimiter';
 import type { ParamsMainHandler } from '@/Validations/MainValidation';
 
 export class MainController {
@@ -9,7 +10,7 @@ export class MainController {
 
   public getMessage: ParamsMainHandler = async (req, res) => {
     const { id } = req.params;
-
+    const { limit, remaining } = getRateLimitInfo(res);
     return res.status(200).json({ message: this.message, id });
   };
 }

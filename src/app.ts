@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { errorHandler, handler404 } from './controllers/ErrorController';
-import mainRouter from './routes/MainRoute';
+import { mainRouter } from './routes';
 
 require('dotenv').config();
 

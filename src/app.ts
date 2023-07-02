@@ -26,4 +26,7 @@ app.use(mainRouter);
 app.use(handler404);
 app.use(errorHandler);
 
+// Trust proxy
+app.set('trust proxy', true);
+
 export default app;

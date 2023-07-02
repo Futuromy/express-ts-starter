@@ -11,9 +11,7 @@ export function rateLimitMiddleware(
   return async (req, res, next) => {
     const endpoint = req.path;
     const ip = req.ip || req.headers['x-forwarded-for'] || '';
-    const identifier = `${prefix}@${ip}/${endpoint}`;
-
-    const key = `ratelimit:${identifier}`;
+    const key = `${prefix}@${ip}${endpoint}`;
 
     let current = Number(await redis.get(key));
     if (current !== null && Number(current) >= maxRequests) {
